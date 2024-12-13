@@ -10,4 +10,4 @@ spring:
       ddl-auto: create
 
 user.service.url: http://user-service:8080
-pizza.service.url: http://good-service:8081
+good.service.url: http://good-service:8081
