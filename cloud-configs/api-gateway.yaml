@@ -1,0 +1,30 @@
+server.port: 80
+
+spring.cloud.gateway.routes:
+  - id: delivery-service
+    uri: http://load-balancer:9000
+    predicates:
+      - Path=/api/delivery/**
+  - id: user-service
+    uri: http://user-service:8080
+    predicates:
+      - Path=/api/users/**
+  - id: good-service
+    uri: http://good-service:8081
+    predicates:
+      - Path=/api/good/**
+
+spring.security.oauth2.client:
+  registration.github:
+    client-id: Ov23liTu8lwwzUAVTe89
+    client-secret: 2fb32c98ab314cfa10be2a746fbeb3dc9a5ebe3d
+    authorization-grant-type: authorization_code
+    redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+    scope: read:user,user:email
+  provider.github:
+    authorization-uri: https://github.com/login/oauth/authorize
+    token-uri: https://github.com/login/oauth/access_token
+    user-info-uri: https://api.github.com/user
+    user-name-attribute: login
+
+eureka.client.service-url.defaultZone: http://service-discovery:8761/eureka/
